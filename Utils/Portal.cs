@@ -1,4 +1,5 @@
-﻿using SupremeFramework.APIConfig;
+﻿using RestSharp;
+using SupremeFramework.APIConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SupremeFramework.Utils
     {
 
         public Dictionary<string, SupremeAPI> API = new Dictionary<string, SupremeAPI>();
+        public Dictionary<string, RestRequest> RequestPortal = new Dictionary<string, RestRequest>();
         public Portal() { 
         
         
@@ -18,6 +20,10 @@ namespace SupremeFramework.Utils
         }
 
 
+        public void AddToAPIPortal(string Tname, SupremeAPI value)
+        {
+            API.Add(Tname, value);
+        }
 
     }
 }
