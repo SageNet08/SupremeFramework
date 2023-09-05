@@ -2,22 +2,33 @@
 This is a general outline of how the API tests can be written and reused.
 
 //Resource Allocation 
-Background: The Url Set-Up 
-	Given the user sets the baseUrl "https://www.api.google.com/"
-	And set client with token
-	| token          |
-	| <insert-token> |
 
-@tag1
-Scenario: API Test
-	Given the user sets a "GET" method
-	Then the user sends a payload "payload" of type "path" 
+
+
+
+
+
+
+Background:  Get Token
+	* the user sets the baseUrl "https://localhost:44339/"
+	* an API request is made
+	| methodType | urlParameter     | urlResourceValue | requestBody     |
+	| POST       | api/authenticate |       null      | PostCredentials |
+	When the request is executed 
+	Then authenication token is saved 
+
 
 	
-Scenario:  Test
-Given an API request is made
-| methodType | urlParameter | urlResourceValue | requestBody            | 
-| POST       | catalogId    | 1                | PostRequestCatalogJson |
-When the request is executed
-Then response is read 
+	
 
+
+
+@TheGreatSage
+Scenario:  Get Request for CatalogItemID
+
+    Given user has authenticaion token 
+	Given an API request is made
+	| methodType | urlParameter                      | urlResourceValue | requestBody            |
+	| GET        | api/catalog-items/{catalogItemId} | 1                | PostRequestCatalogJson |
+	When the request is executed
+	Then the GetResponsforCatalogItem is received 

@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Gherkin.CucumberMessages.Types;
+using LivingDoc.Dtos;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
 using RestSharp;
 using RestSharp.Authenticators;
+using SupremeFramework.Utils;
 
 namespace SupremeFramework.APIConfig
 {
@@ -69,18 +74,18 @@ namespace SupremeFramework.APIConfig
 
         public RestRequest RequestMaker(string urlParamter, Method method)
         {
-            if (urlParameter == "")
-            {
+            //if (urlParameter == "")
+         //   {
                 var request = new RestRequest(urlParamter, method);
                 return request;
-            }
+           // }
 
-            else
-            {
-                var request = new RestRequest("{ " + urlParamter + " }", method);
-                return request;
+          //  else
+        //    {
+         //       var request = new RestRequest("{ " + urlParamter + " }", method);
+         //       return request;
 
-            }
+        //    }
 
 
 
@@ -88,7 +93,23 @@ namespace SupremeFramework.APIConfig
 
         public void AddUrlSegmentToUrl(RestRequest request, string parameterID, string resource)
         {
-            request.AddUrlSegment(parameterID, resource); 
+
+            string pattern = @"\{([^}]+)\}";
+            Match match = Regex.Match(parameterID, pattern);
+            if (match.Success)
+            {
+                string matchedPart = match.Groups[1].Value; // Extract the content inside curly braces
+                
+
+                request.AddUrlSegment(matchedPart, resource);
+            }
+            else
+            {
+                Console.WriteLine("Pattern not found in the input string.");
+            }
+
+
+            
 
         }
 
@@ -96,15 +117,16 @@ namespace SupremeFramework.APIConfig
         public void AddJsonBodyToRequest(RestRequest request, string jsonContent)
         {
             request.AddJsonBody(jsonContent);
-        } 
-
-
+        }
         public string GetJsonFileRead(string jsonFileName)
         {
-            string jsonFilePath = "C:\\Users\\P12AE86\\source\\repos\\SpecflowAPI\\JSON Files\\";
-            string fullPath = jsonFilePath + jsonFilePath + ".json"; 
+       
 
-            string jsonContent = File.ReadAllText(jsonFilePath);
+
+            string jsonFilePath = "C:\\Users\\P12AE86\\Source\\Repos\\SageNet08\\SupremeFramework\\Request\\Json\\";
+            string fullPath = jsonFilePath + jsonFileName + ".json"; 
+
+            string jsonContent = File.ReadAllText(fullPath);
             return jsonContent;
         }
 
@@ -117,7 +139,7 @@ namespace SupremeFramework.APIConfig
 
         public RestClient ClientMaker(JwtAuthenticator authenticator, string baseurl)
         {
-            var options = new RestClientOptions()
+            var options = new RestClientOptions(baseurl)
             {
                 Authenticator = authenticator
             };
@@ -125,5 +147,8 @@ namespace SupremeFramework.APIConfig
             var client = new RestClient(options);
             return client;
         }
+
+        public RestClient ClientWithoutAuth(string baseurl)
+        { return new RestClient(baseurl); }
     }
 }

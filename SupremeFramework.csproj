@@ -18,8 +18,6 @@
 
   <ItemGroup>
     <Folder Include="BrowserConfig\" />
-    <Folder Include="Features\UI\" />
-    <Folder Include="Response\" />
     <Folder Include="Pages\" />
     <Folder Include="TestCases\UI\" />
     <Folder Include="TestData\" />

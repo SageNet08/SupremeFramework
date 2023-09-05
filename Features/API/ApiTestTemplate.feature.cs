@@ -76,70 +76,42 @@ namespace SupremeFramework.Features.API
         
         public virtual void FeatureBackground()
         {
-#line 5
-#line hidden
-#line 6
- testRunner.Given("the user sets the baseUrl \"https://www.api.google.com/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "token"});
-            table1.AddRow(new string[] {
-                        "<insert-token>"});
-#line 7
- testRunner.And("set client with token", ((string)(null)), table1, "And ");
-#line hidden
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("API Test")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
-        public virtual void APITest()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "tag1"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("API Test", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 12
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 5
-this.FeatureBackground();
 #line hidden
 #line 13
- testRunner.Given("the user sets a \"GET\" method", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("the user sets the baseUrl \"https://localhost:44339/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "* ");
 #line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "methodType",
+                        "urlParameter",
+                        "urlResourceValue",
+                        "requestBody"});
+            table1.AddRow(new string[] {
+                        "POST",
+                        "api/authenticate",
+                        "null",
+                        "PostCredentials"});
 #line 14
- testRunner.Then("the user sends a payload \"payload\" of type \"path\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("an API request is made", ((string)(null)), table1, "* ");
 #line hidden
-            }
-            this.ScenarioCleanup();
+#line 17
+ testRunner.When("the request is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 18
+ testRunner.Then("authenication token is saved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Test")]
-        public virtual void Test()
+        [NUnit.Framework.DescriptionAttribute("Get Request for CatalogItemID")]
+        [NUnit.Framework.CategoryAttribute("TheGreatSage")]
+        public virtual void GetRequestForCatalogItemID()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "TheGreatSage"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Test", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get Request for CatalogItemID", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -159,8 +131,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 12
 this.FeatureBackground();
+#line hidden
+#line 29
+    testRunner.Given("user has authenticaion token", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "methodType",
@@ -168,18 +143,18 @@ this.FeatureBackground();
                             "urlResourceValue",
                             "requestBody"});
                 table2.AddRow(new string[] {
-                            "POST",
-                            "catalogId",
+                            "GET",
+                            "api/catalog-items/{catalogItemId}",
                             "1",
                             "PostRequestCatalogJson"});
-#line 18
-testRunner.Given("an API request is made", ((string)(null)), table2, "Given ");
+#line 30
+ testRunner.Given("an API request is made", ((string)(null)), table2, "Given ");
 #line hidden
-#line 21
-testRunner.When("the request is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.When("the request is executed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
-testRunner.Then("response is read", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+ testRunner.Then("the GetResponsforCatalogItem is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
