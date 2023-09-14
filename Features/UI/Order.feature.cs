@@ -75,15 +75,15 @@ namespace SupremeFramework.Features.UI
         
         public virtual void FeatureBackground()
         {
-#line 11
+#line 6
 #line hidden
-#line 12
+#line 7
  testRunner.Given("the user is on the homepage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 13
+#line 8
  testRunner.When("the user click the Login link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 9
  testRunner.Then("the user is on the Login Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
@@ -97,7 +97,7 @@ namespace SupremeFramework.Features.UI
                     "Chrome"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order a Product", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 24
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -117,7 +117,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 6
 this.FeatureBackground();
 #line hidden
                 TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
@@ -126,8 +126,8 @@ this.FeatureBackground();
                 table18.AddRow(new string[] {
                             "demouser@microsoft.com",
                             "Pass@word1"});
-#line 28
-    testRunner.When("the user enters the credentials and click the login button", ((string)(null)), table18, "When ");
+#line 13
+ testRunner.When("the user enters the credentials and click the login button", ((string)(null)), table18, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                             "brand",
@@ -135,34 +135,34 @@ this.FeatureBackground();
                 table19.AddRow(new string[] {
                             "Other",
                             "All"});
-#line 31
+#line 16
  testRunner.When("the user selects the brand and the type filters of the products", ((string)(null)), table19, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                             "items"});
                 table20.AddRow(new string[] {
                             "Prism White T-Shirt"});
-#line 34
+#line 19
  testRunner.And("the user adds an item to basket", ((string)(null)), table20, "And ");
 #line hidden
-#line 37
+#line 22
  testRunner.And("the Basket page appears", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                             "quantity"});
                 table21.AddRow(new string[] {
                             "5"});
-#line 38
+#line 23
  testRunner.When("the user checks out with the required quantity", ((string)(null)), table21, "When ");
 #line hidden
-#line 41
+#line 26
  testRunner.And("the user completes payment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                             "username"});
                 table22.AddRow(new string[] {
                             "demouser@microsoft.com"});
-#line 42
+#line 27
  testRunner.When("the user access his orders", ((string)(null)), table22, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
@@ -171,7 +171,7 @@ this.FeatureBackground();
                 table23.AddRow(new string[] {
                             "Prism White T-Shirt",
                             "5"});
-#line 46
+#line 31
  testRunner.Then("the MyOrder History is verified", ((string)(null)), table23, "Then ");
 #line hidden
             }
@@ -180,13 +180,87 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Invalid Quantity")]
-        [NUnit.Framework.CategoryAttribute("Edge")]
+        [NUnit.Framework.CategoryAttribute("Chrome")]
         public virtual void InvalidQuantity()
         {
             string[] tagsOfScenario = new string[] {
-                    "Edge"};
+                    "Chrome"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invalid Quantity", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line hidden
+                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+                            "username",
+                            "password"});
+                table24.AddRow(new string[] {
+                            "demouser@microsoft.com",
+                            "Pass@word1"});
+#line 38
+  testRunner.When("the user enters the credentials and click the login button", ((string)(null)), table24, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+                            "brand",
+                            "type"});
+                table25.AddRow(new string[] {
+                            "Other",
+                            "All"});
+#line 41
+ testRunner.When("the user selects the brand and the type filters of the products", ((string)(null)), table25, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                            "items"});
+                table26.AddRow(new string[] {
+                            "Prism White T-Shirt"});
+#line 44
+ testRunner.And("the user adds an item to basket", ((string)(null)), table26, "And ");
+#line hidden
+#line 47
+ testRunner.When("the Basket page appears", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                            "quantity"});
+                table27.AddRow(new string[] {
+                            "-1"});
+#line 48
+ testRunner.And("the user tries to check out with an invalid quantity", ((string)(null)), table27, "And ");
+#line hidden
+#line 51
+ testRunner.Then("user gets an error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("User orders 5 items")]
+        [NUnit.Framework.CategoryAttribute("Chrome")]
+        public virtual void UserOrders5Items()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Chrome"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User orders 5 items", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -207,81 +281,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
-this.FeatureBackground();
-#line hidden
-                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
-                            "username",
-                            "password"});
-                table24.AddRow(new string[] {
-                            "demouser@microsoft.com",
-                            "Pass@word1"});
-#line 55
-  testRunner.When("the user enters the credentials and click the login button", ((string)(null)), table24, "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
-                            "brand",
-                            "type"});
-                table25.AddRow(new string[] {
-                            "Other",
-                            "All"});
-#line 58
- testRunner.When("the user selects the brand and the type filters of the products", ((string)(null)), table25, "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
-                            "items"});
-                table26.AddRow(new string[] {
-                            "Prism White T-Shirt"});
-#line 61
- testRunner.And("the user adds an item to basket", ((string)(null)), table26, "And ");
-#line hidden
-#line 64
- testRunner.When("the Basket page appears", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
-                            "quantity"});
-                table27.AddRow(new string[] {
-                            "-1"});
-#line 65
- testRunner.And("the user tries to check out with an invalid quantity", ((string)(null)), table27, "And ");
-#line hidden
-#line 68
- testRunner.Then("user gets an error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("User orders 5 items")]
-        [NUnit.Framework.CategoryAttribute("Chrome")]
-        public virtual void UserOrders5Items()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Chrome"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User orders 5 items", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 73
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 11
+#line 6
 this.FeatureBackground();
 #line hidden
                 TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
@@ -290,7 +290,7 @@ this.FeatureBackground();
                 table28.AddRow(new string[] {
                             "demouser@microsoft.com",
                             "Pass@word1"});
-#line 74
+#line 55
   testRunner.When("the user enters the credentials and click the login button", ((string)(null)), table28, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
@@ -299,7 +299,7 @@ this.FeatureBackground();
                 table29.AddRow(new string[] {
                             "Other",
                             "All"});
-#line 77
+#line 58
  testRunner.When("the user selects the brand and the type filters of the products", ((string)(null)), table29, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
@@ -332,23 +332,23 @@ this.FeatureBackground();
                             "Other",
                             "All",
                             "5"});
-#line 80
+#line 61
  testRunner.And("the user adds 5 items to basket", ((string)(null)), table30, "And ");
 #line hidden
-#line 87
+#line 68
  testRunner.And("the Basket page appears", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 88
+#line 69
  testRunner.When("the user checks out the five items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 89
+#line 70
  testRunner.And("the user completes payment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
                             "username"});
                 table31.AddRow(new string[] {
                             "demouser@microsoft.com"});
-#line 90
+#line 71
  testRunner.When("the user access his orders", ((string)(null)), table31, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
@@ -369,7 +369,7 @@ this.FeatureBackground();
                 table32.AddRow(new string[] {
                             "Prism White TShirt",
                             "5"});
-#line 93
+#line 74
  testRunner.Then("the MyOrder History is verified", ((string)(null)), table32, "Then ");
 #line hidden
             }
