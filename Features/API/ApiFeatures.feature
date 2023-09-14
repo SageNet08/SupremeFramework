@@ -48,7 +48,7 @@ Scenario: Delete Request
      Given user has authenticaion token
 	 * an API request is made
 	 | methodType | urlParameter                        | urlResourceValue | requestBody |
-	 | DELETE     | api/catalog-items/{catalog-ItemsId} | 51              | noBody      |
+	 | DELETE     | api/catalog-items/{catalog-ItemsId} | 30              | noBody      |
 	 When the request is executed
 	 Then the "DeleteCatalogIdResponse" type is received
 	 * the Status Code "200" should be received
