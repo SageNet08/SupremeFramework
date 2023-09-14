@@ -297,7 +297,7 @@ this.FeatureBackground();
                 table6.AddRow(new string[] {
                             "DELETE",
                             "api/catalog-items/{catalog-ItemsId}",
-                            "51",
+                            "30",
                             "noBody"});
 #line 49
   testRunner.And("an API request is made", ((string)(null)), table6, "* ");

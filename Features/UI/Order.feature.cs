@@ -90,11 +90,11 @@ namespace SupremeFramework.Features.UI
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Order a Product")]
-        [NUnit.Framework.CategoryAttribute("Edge")]
+        [NUnit.Framework.CategoryAttribute("Chrome")]
         public virtual void OrderAProduct()
         {
             string[] tagsOfScenario = new string[] {
-                    "Edge"};
+                    "Chrome"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order a Product", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 24
@@ -254,11 +254,11 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User orders 5 items")]
-        [NUnit.Framework.CategoryAttribute("Edge")]
+        [NUnit.Framework.CategoryAttribute("Chrome")]
         public virtual void UserOrders5Items()
         {
             string[] tagsOfScenario = new string[] {
-                    "Edge"};
+                    "Chrome"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User orders 5 items", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 73

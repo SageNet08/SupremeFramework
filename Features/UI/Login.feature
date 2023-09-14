@@ -10,7 +10,7 @@ Login process;
 
 
 
- @Edge
+ @Chrome
 
 Scenario: Successful Login for user1
     Given the user is on the homepage
@@ -27,7 +27,7 @@ Scenario: Successful Login for user1
 	| demouser@microsoft.com |
 
 
- @Edge
+ @Chrome
 
 Scenario: Successful Login for user2
     Given the user is on the homepage
@@ -45,7 +45,7 @@ Scenario: Successful Login for user2
 
 
 
- @Edge
+ @Chrome
 Scenario: Invalid Login 
 	Given the user is on the homepage
 	When the user click the Login link 

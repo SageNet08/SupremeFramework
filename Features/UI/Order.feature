@@ -3,29 +3,14 @@
 Feature: Order
 In this feature file, orders will be placed;
 
-
-
-
-
-
 Background:  Homepage To Login Page
 	Given the user is on the homepage
 	When the user click the Login link 
 	Then the user is on the Login Page
 
-
-
-
-
-
-
-
- @Edge
+@Chrome
 Scenario: Order a Product
-
-
-
-    When the user enters the credentials and click the login button
+	When the user enters the credentials and click the login button
 	| username               | password   |
 	| demouser@microsoft.com | Pass@word1 |
 	When the user selects the brand and the type filters of the products
@@ -48,9 +33,7 @@ Scenario: Order a Product
 	| Prism White T-Shirt | 5        |
 
 
-
-
- @Edge
+@Chrome
 Scenario: Invalid Quantity
 	 When the user enters the credentials and click the login button
 	| username               | password   |
@@ -67,9 +50,7 @@ Scenario: Invalid Quantity
 	| -1	   |
 	Then user gets an error message
 	
-
-
- @Edge
+@Chrome
 Scenario: User orders 5 items
 	 When the user enters the credentials and click the login button
 	| username               | password   |
