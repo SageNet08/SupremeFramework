@@ -9,6 +9,13 @@ using Newtonsoft.Json;
 using SupremeFramework.Response;
 using System.Runtime.CompilerServices;
 using RestSharp.Authenticators;
+using System.Net;
+using NUnit.Framework;
+using Gherkin;
+using Newtonsoft.Json.Linq;
+using TechTalk.SpecFlow.Tracing;
+using System.ComponentModel.DataAnnotations;
+using SupremeFramework.Features.API;
 
 namespace SupremeFramework.Tests.API
 {
@@ -23,9 +30,13 @@ namespace SupremeFramework.Tests.API
     public class ApiTestSteps
     {
 
-        Portal portal = new Portal();
+
         SupremeAPI apiConfigs = new SupremeAPI();
         private List<Dictionary<string, string>> tableData = new List<Dictionary<string, string>>();
+        private List<Dictionary<string, string>> tableData2 = new List<Dictionary<string, string>>();
+        private List<Dictionary<string, string>> tableData3 = new List<Dictionary<string, string>>();
+        private List<Dictionary<string, string>> tableData4 = new List<Dictionary<string, string>>();
+        private List<Dictionary<string, string>> tableData5 = new List<Dictionary<string, string>>();
         SupremeTable tb = new SupremeTable();
 
 
@@ -41,87 +52,9 @@ namespace SupremeFramework.Tests.API
             apiConfigs.client = apiConfigs.ClientWithoutAuth(apiConfigs.baseUrl);
             
 
-           // portal.AddToAPIPortal("apiSetWithBaseUrl", apiConfigs);
 
         }
-        [When(@"the user fetch the authentication token for the user ""([^""]*)""")]
-        public void WhenTheUserFetchTheAuthenticationTokenForTheUser(string goodUserOne)
-        {
-            
-            Users users = new Users();
-            var userDict =  users.getUserCredentials(goodUserOne); 
-            var username = userDict["username"];
-            var password = userDict["password"];
-
-
-           // token  =  getToken()
-
-
-        }
-
-
         
-
-
-
-
-
-        //   [Given(@"set client with token")]
-        //  public void GivenWithToken(Table table)
-        //  {
-        //      tb.tableConvert(table, tableData); 
-        //     foreach(var rowData in tableData)
-        //    {
-        //     apiConfigs.token = rowData["token"];
-        //     var authenticator = apiConfigs.SetAuthToken(apiConfigs.token);
-        // /    var baseUrl = apiConfigs.baseUrl;   
-        //   if(baseUrl!= null) { apiConfigs.client = apiConfigs.ClientMaker(authenticator, baseUrl);
-
-
-        //       portal.AddToAPIPortal("apiConfigsWithToken", apiConfigs);
-        //    }
-
-
-        //   break; 
-        //  }
-
-
-
-        // }
-
-
-        [Given(@"the user sets a ""([^""]*)"" method")]
-
-        public void GivenTheUserSetsTheMethod(string methodType)
-        {
-            var APIContainer = portal.API["apiSetWithBaseUrl"];
-            APIContainer.method = APIContainer.MethodSetter(methodType);
-
-
-            ///  APIContainer.payloadType = payloadType;
-            
-          //  portal.AddToAPIPortal("apiWithMethodSet", APIContainer);
-        }
-
-        [When(@"the user sends a payload ""([^""]*)"" of type ""([^""]*)""")]
-      //  public void ThenTheUserSendsAPayloadAndItsType(string payload, string payloadType)
-       // {
-
-           // var APIContainer = portal.API["apiWithMethodSet"];
-
-        ///    var method = APIContainer.method;
-        //    if (payloadType == "path")
-          //  {
-        ///
-         // // /     APIContainer.RequestMaker(payload, method);
-           // }
-
-
-
-
-       // }
-
-
         [Given(@"an API request is made")]
         public void GivenAnAPIRequestIsMade(Table table)
         {
@@ -147,11 +80,12 @@ namespace SupremeFramework.Tests.API
             }
 
             var request = apiConfigs.RequestMaker(apiConfigs.urlParameter, apiConfigs.method);
-            
-            
-            
 
-            if(apiConfigs.urlResourceValue ==  "null" ) {
+
+          
+
+
+            if (apiConfigs.urlResourceValue ==  "null" ) {
 
                 var jsonContent = apiConfigs.GetJsonFileRead(apiConfigs.requestBody);
 
@@ -160,7 +94,7 @@ namespace SupremeFramework.Tests.API
 
 
 
-               // portal.AddToAPIPortal("apiSetWithAll", apiConfigs);
+              
 
             }
             
@@ -171,10 +105,8 @@ namespace SupremeFramework.Tests.API
 
                 apiConfigs.AddJsonBodyToRequest(request, jsonContent);
 
+               
 
-
-
-              //  portal.AddToAPIPortal("apiSetWithAll", apiConfigs);
 
             }
 
@@ -184,10 +116,6 @@ namespace SupremeFramework.Tests.API
         [When(@"the request is executed")]
         public void ThenTheRequestIsExecuted()
         {
-
-            //    var  request = portal.API["apiSetWithAll"].request;
-            //     var client = portal.API["apiSetWithAll"].client; 
-
             var request = apiConfigs.request; 
             var client = apiConfigs.client;
             
@@ -195,30 +123,29 @@ namespace SupremeFramework.Tests.API
             var response = client.Execute(request);
             apiConfigs.response = response;
 
-
             
+            if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
+            {
+                Console.WriteLine("Request Successful");
+            }
+            else
+            {
+                Console.WriteLine("Status Code: ", apiConfigs.response.StatusCode);
+            }
 
-          //  portal.AddToAPIPortal("apiWithResponse", apiConfigs); 
-            
+
+
+
+
         }
 
-        [When(@"response is read")]
-        public void ThenResponseIsRead()
-        {
-           /// var response = portal.API["apiWithResponse"].response;
-          //  var content = response.Content;
-
-           // var receivedInfo = JsonConvert.DeserializeObject(content); 
-
-             
-        }
 
 
         [Then(@"authenication token is saved")]
         public void ThenAuthenicationTokenIsSaved()
         {
             var response = apiConfigs.response;
-           // var response = portal.API["apiWithResponse"].response;
+
             var content = response.Content;
             var receivedInfo = JsonConvert.DeserializeObject<AuthTokenResponse>(content);
 
@@ -234,30 +161,232 @@ namespace SupremeFramework.Tests.API
         public void GivenUserHasAuthenticaionToken()
         {
             var token = apiConfigs.token;
-            var authenticator = new JwtAuthenticator (token);   
-            apiConfigs.client = apiConfigs.ClientMaker(authenticator, apiConfigs.baseUrl); 
+           
+
+
+
+            apiConfigs.client = apiConfigs.ClientMaker(token, apiConfigs.baseUrl); 
             var client = apiConfigs.client;
+            
+            var request = apiConfigs.request;
+
+            
+
+
+
+        }
+        [Then(@"the ""([^""]*)"" type is received")]
+        public void ThenTheRequiredContentIsReceived(string targetType)
+        {
+            var response = apiConfigs.response; 
+            string namespacew = "SupremeFramework.Response.";
+            string full = namespacew + targetType;
+            Type? type = Type.GetType(full);
+
+            var content = response.Content;
+            Console.WriteLine(content);
+
+            
+
+            if (type != null)
+            {
+                var receivedInfo = JsonConvert.DeserializeObject(content, type);
+                
+               // Console.WriteLine(((GetCatalogItemIdResp)receivedInfo).catalogItem.id);
+                Console.WriteLine(content);
+            }
+
+
+        }
+
+        [Then(@"the Status Code ""([^""]*)"" should be received")]
+        public void ThenTheStatusCodeShouldBeReceived(int statusCode)
+        {
+            HttpStatusCode stringCode = apiConfigs.response.StatusCode;
+            int intCode = (int)stringCode;
+            Console.WriteLine(intCode);
+            Assert.AreEqual(statusCode, intCode);
+            var response = apiConfigs.response;
+            var headers = response.Headers;
+
+
+            if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
+            {
+                // Access the response headers and verify a specific header
+                if (headers != null)
+                {
+
+                    Dictionary<string, string> HeadersList = new Dictionary<string, string>();
+                    foreach(var item in response.Headers)
+                    {
+                        string[]KeyPairs = item.ToString().Split('=');
+                        HeadersList.Add(KeyPairs[0], KeyPairs[1]);
+
+
+                        Console.WriteLine($"The value of Your-Header-Name is: {KeyPairs[0]}, {KeyPairs[1]}");
+                        
+
+
+                    }
+
+
+
+                    
+                }
+
+                
+            }
+            else
+            {
+                Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+            }
+
+
+        }
+
+
+
+        [Given(@"the user adds query parameters to the request")]
+        public void GivenTheUserAddsQueryParametersToTheRequest(Table table)
+        {
+            var request = apiConfigs.request;
+
+            tb.tableConvert(table, tableData2);
+            foreach (var rowData in tableData2)
+            {
+                string key = rowData["key"];
+                int value = int.Parse(rowData["value"]);
+
+                request.AddQueryParameter(key, value);
+
+
+
+            }
+        }
+
+
+        [Then(@"the response is verified for the following fields")]
+        public void ThenTheResponseIsVerifiedForTheFollowingFields(Table table)
+        {
+            var response = apiConfigs.response;
+            var content = response.Content;
+            tb.tableConvert(table, tableData3);
+            var receivedInfo = JsonConvert.DeserializeObject<GetCatalogItemIdResp>(content);
+            foreach (var rowData in tableData3)
+            {
+                int id  = int.Parse(rowData["id"]);
+                string name = rowData["name"];
+                double price = double.Parse(rowData["price"]); 
+                string uri = rowData["pictureUri"];
+                int catalogTypeId = int.Parse(rowData["catalogTypeId"]);
+                int catalogBrandId = int.Parse(rowData["catalogBrandId"]);
+
+                Assert.AreEqual(id, receivedInfo.catalogItem.id);
+                Assert.AreEqual(price, receivedInfo.catalogItem.price);
+                Assert.AreEqual(name, receivedInfo.catalogItem.name);
+                Assert.AreEqual(uri, receivedInfo.catalogItem.pictureUri);
+                Assert.AreEqual(catalogBrandId, receivedInfo.catalogItem.catalogBrandId);
+                Assert.AreEqual(catalogTypeId, receivedInfo.catalogItem.catalogTypeId); 
+
+
+
+            }
+        }
+
+        [Then(@"the DELETE response is verified for the following field")]
+        public void ThenTheDELETEResponseIsVerifiedForTheFollowingField(Table table)
+        {
+
+            var response = apiConfigs.response;
+            var content = response.Content;
+            tb.tableConvert(table, tableData4);
+            var receivedInfo = JsonConvert.DeserializeObject<DeleteCatalogIdResponse>(content);
+            foreach (var rowData in tableData4)
+            {
+                string stats  = rowData["status"];
+              
+                Assert.AreEqual(stats, receivedInfo.status);
              
 
 
+            }
 
 
 
         }
 
-        [Then(@"the GetResponsforCatalogItem is received")]
-        public void ThenTheGetResponsforCatalogItemIsReceived()
+        [Then(@"the Get response is verified for the following field")]
+        public void ThenThePUTResponseIsVerifiedForTheFollowingField(Table table)
         {
-            var response = apiConfigs.response; 
+            var response = apiConfigs.response;
+            var content = response.Content;
+            tb.tableConvert(table, tableData3);
+            var receivedInfo = JsonConvert.DeserializeObject<GetCatalogItemsByPageResp>(content);
+            foreach (var rowData in tableData5)
+            {
+                int id = int.Parse(rowData["id"]);
+                string name = rowData["name"];
+                double price = double.Parse(rowData["price"]);
+                string uri = rowData["pictureUri"];
+                int catalogTypeId = int.Parse(rowData["catalogTypeId"]);
+                int catalogBrandId = int.Parse(rowData["catalogBrandId"]);
+                int PageCount = int.Parse(rowData["pageCount"]);
+                Assert.AreEqual(id, receivedInfo.id);
+                Assert.AreEqual(price, receivedInfo.price);
+                Assert.AreEqual(name, receivedInfo.name);
+                Assert.AreEqual(uri, receivedInfo.pictureUri);
+                Assert.AreEqual(catalogBrandId, receivedInfo.catalogBrandId);
+                Assert.AreEqual(catalogTypeId, receivedInfo.catalogTypeId);
+                Assert.AreEqual(PageCount, receivedInfo.pageCount);
 
+
+            }
+        }
+
+
+        [Then(@"the GetRequestByPage type is received")]
+        public void ThenTheGetRequestByPageTypeIsReceived()
+        {
+            var response = apiConfigs.response;
             var content = response.Content;
 
-            var receivedInfo = JsonConvert.DeserializeObject<GetCatalogItemIdResp>(content);
 
-            Console.WriteLine(receivedInfo.catalogItem.id); 
-            
+            var receivedInfo = JsonConvert.DeserializeObject<GetCatalogItemsByPageResp>(content);
+
+            Console.WriteLine(content);
 
         }
+
+        [Then(@"the GetByPage response is verified for the following field")]
+        public void ThenTheGetByPageResponseIsVerifiedForTheFollowingField(Table table)
+        {
+            var response = apiConfigs.response;
+            var content = response.Content;
+            tb.tableConvert(table, tableData3);
+            var receivedInfo = JsonConvert.DeserializeObject<GetCatalogItemsByPageResp>(content);
+            foreach (var rowData in tableData5)
+            {
+                int id = int.Parse(rowData["id"]);
+                string name = rowData["name"];
+                double price = double.Parse(rowData["price"]);
+                string uri = rowData["pictureUri"];
+                int catalogTypeId = int.Parse(rowData["catalogTypeId"]);
+                int catalogBrandId = int.Parse(rowData["catalogBrandId"]);
+                int PageCount = int.Parse(rowData["pageCount"]);
+                Assert.AreEqual(id, receivedInfo.id);
+                Assert.AreEqual(price, receivedInfo.price);
+                Assert.AreEqual(name, receivedInfo.name);
+                Assert.AreEqual(uri, receivedInfo.pictureUri);
+                Assert.AreEqual(catalogBrandId, receivedInfo.catalogBrandId);
+                Assert.AreEqual(catalogTypeId, receivedInfo.catalogTypeId);
+                Assert.AreEqual(PageCount, receivedInfo.pageCount);
+
+
+            }
+        }
+
+
+
 
 
 

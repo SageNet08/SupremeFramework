@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Authenticators.OAuth2;
 using SupremeFramework.Utils;
 
 namespace SupremeFramework.APIConfig
@@ -137,12 +138,15 @@ namespace SupremeFramework.APIConfig
             return authenticator;
         }
 
-        public RestClient ClientMaker(JwtAuthenticator authenticator, string baseurl)
+        public RestClient ClientMaker(string token,  string baseurl)
         {
+         
+            var authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(token, "Bearer");
             var options = new RestClientOptions(baseurl)
             {
                 Authenticator = authenticator
             };
+         
 
             var client = new RestClient(options);
             return client;

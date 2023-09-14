@@ -15,6 +15,7 @@ namespace SupremeFramework.Utils
             {
 
                 var rowData = new Dictionary<string, string>();
+                
                 foreach (var header in table.Header)
                 {
                     rowData[header] = row[header];

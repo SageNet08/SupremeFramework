@@ -21,7 +21,7 @@ namespace SupremeFramework.Utils
 
                     var credentials = new Dictionary<string, string>
                   {
-                    { "username", "demouser@microsoft.com" },
+                    { "username", "admin@microsoft.com" },
                     { "password", "Pass@word1" }
                 };
                     return credentials;
