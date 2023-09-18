@@ -1,9 +1,6 @@
 ﻿Feature: API_TEST_TEMPLATE
-This is a general outline of how the API tests can be written and reused.
-
-//Resource Allocation 
-
-
+This feature file has the scenarios for the API tests. 
+Make use your localhost is running before the test. 
 
 Background:  Get Token For Admin 
 	* the user sets the baseUrl "https://localhost:44339/"
@@ -13,7 +10,6 @@ Background:  Get Token For Admin
 	When the request is executed 
 	Then authenication token is saved 
 
-@TheGreatSage
 Scenario:  Get Request for CatalogItemID
 
     Given user has authenticaion token 
@@ -21,42 +17,37 @@ Scenario:  Get Request for CatalogItemID
 	| methodType | urlParameter                      | urlResourceValue | requestBody |
 	| GET        | api/catalog-items/{catalogItemId} | 1                | noBody      |
 	When the request is executed
-	Then the "GetCatalogItemIdResp" type is received 
 	Then the Status Code "200" should be received
+	Then the "GetCatalogItemIdResp" type is received 
 	Then the response is verified for the following fields
 	| id | name                      | price | pictureUri             | catalogTypeId | catalogBrandId |
 	| 1  | .NET Bot Black Sweatshirt | 19.50 | /images/products/1.png | 2             | 2              |
 	
-
-
-
-
 Scenario: Post Request 
      Given user has authenticaion token
 	 Given an API request is made
 	 | methodType | urlParameter       | urlResourceValue | requestBody            |
 	 | POST       | api/catalog-items/ | null             | PostRequestCatalogJson |
 	 When the request is executed
+	 Then the Status Code "201" should be received
 	 Then the "PostCatalogItemResp" type is received
-	 * the Status Code "201" should be received
 	 Then the response is verified for the following fields
 	| id | name | price | pictureUri                                    | catalogTypeId | catalogBrandId |
-	| 57 | OLD   | 10    | images\\products\\eCatalog-item-default.png?0 | 2             | 2              |
+	| 75 | novel63   | 10    | images\\products\\eCatalog-item-default.png?0 | 2             | 2              |
 
 
 Scenario: Delete Request 
      Given user has authenticaion token
 	 * an API request is made
 	 | methodType | urlParameter                        | urlResourceValue | requestBody |
-	 | DELETE     | api/catalog-items/{catalog-ItemsId} | 30              | noBody      |
+	 | DELETE     | api/catalog-items/{catalog-ItemsId} | 75              | noBody      |
 	 When the request is executed
+	 Then the Status Code "200" should be received
 	 Then the "DeleteCatalogIdResponse" type is received
-	 * the Status Code "200" should be received
 	 Then the DELETE response is verified for the following field
 	 | status  |
 	 | Deleted |
-
-	
+	#Delete Request might fail when run as the resource might already been deleted. Be sure to change the resource value. 
 
 Scenario: Put Request
 	Given user has authenticaion token
@@ -69,8 +60,6 @@ Scenario: Put Request
 	 Then the response is verified for the following fields
 	| id | name | price | pictureUri                                    | catalogTypeId | catalogBrandId |
 	| 57 | NEW   | 10    | images\\products\\eCatalog-item-default.png?0 | 2             | 2              |
-
-	 
 
 Scenario: Get Request By Page 
 	Given user has authenticaion token

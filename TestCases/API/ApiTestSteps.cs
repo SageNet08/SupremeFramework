@@ -58,56 +58,31 @@ namespace SupremeFramework.Tests.API
         [Given(@"an API request is made")]
         public void GivenAnAPIRequestIsMade(Table table)
         {
-
-
-            
             var client = apiConfigs.client;
-
             tb.tableConvert(table, tableData);
-
-
-
             foreach (var rowData in tableData)
             {
                 apiConfigs.method = apiConfigs.MethodSetter(rowData["methodType"]);
                 apiConfigs.urlParameter = rowData["urlParameter"];
                 apiConfigs.requestBody = rowData["requestBody"];
                 apiConfigs.urlResourceValue = rowData["urlResourceValue"]; 
-
-
-
-
             }
 
             var request = apiConfigs.RequestMaker(apiConfigs.urlParameter, apiConfigs.method);
-
-
-          
-
-
-            if (apiConfigs.urlResourceValue ==  "null" ) {
+            
+            if (apiConfigs.urlResourceValue ==  "null" ) 
+            {
 
                 var jsonContent = apiConfigs.GetJsonFileRead(apiConfigs.requestBody);
 
                 apiConfigs.AddJsonBodyToRequest(request, jsonContent);
-
-
-
-
-              
-
             }
-            
             else
             { 
                 apiConfigs.AddUrlSegmentToUrl(request, apiConfigs.urlParameter, apiConfigs.urlResourceValue);
                 var jsonContent = apiConfigs.GetJsonFileRead(apiConfigs.requestBody);
 
                 apiConfigs.AddJsonBodyToRequest(request, jsonContent);
-
-               
-
-
             }
 
             apiConfigs.request = request;
@@ -118,25 +93,17 @@ namespace SupremeFramework.Tests.API
         {
             var request = apiConfigs.request; 
             var client = apiConfigs.client;
-            
-
             var response = client.Execute(request);
             apiConfigs.response = response;
-
             
-            if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
-            {
-                Console.WriteLine("Request Successful");
-            }
-            else
-            {
-                Console.WriteLine("Status Code: ", apiConfigs.response.StatusCode);
-            }
-
-
-
-
-
+          // if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
+         //   {
+         //       Console.WriteLine("Request Successful");
+        //    }
+         //   else
+         //   {
+         //       Console.WriteLine("Status Code: ", apiConfigs.response.StatusCode);
+          //  }
         }
 
 
@@ -145,12 +112,9 @@ namespace SupremeFramework.Tests.API
         public void ThenAuthenicationTokenIsSaved()
         {
             var response = apiConfigs.response;
-
             var content = response.Content;
             var receivedInfo = JsonConvert.DeserializeObject<AuthTokenResponse>(content);
-
             Console.WriteLine(receivedInfo.token); 
-
             apiConfigs.token = receivedInfo.token;
 
         }
@@ -161,85 +125,131 @@ namespace SupremeFramework.Tests.API
         public void GivenUserHasAuthenticaionToken()
         {
             var token = apiConfigs.token;
-           
-
-
-
             apiConfigs.client = apiConfigs.ClientMaker(token, apiConfigs.baseUrl); 
-            var client = apiConfigs.client;
-            
-            var request = apiConfigs.request;
-
-            
-
-
-
+           // var client = apiConfigs.client;
+           // var request = apiConfigs.request;
         }
         [Then(@"the ""([^""]*)"" type is received")]
         public void ThenTheRequiredContentIsReceived(string targetType)
         {
-            var response = apiConfigs.response; 
-            string namespacew = "SupremeFramework.Response.";
-            string full = namespacew + targetType;
-            Type? type = Type.GetType(full);
-
+            var response = apiConfigs.response;
             var content = response.Content;
-            Console.WriteLine(content);
+            //Console.WriteLine(content);
+           
+                try
+                {
+                    string namespacew = "SupremeFramework.Response.";
+                    string full = namespacew + targetType;
+                    Type? type = Type.GetType(full);
 
+                if (type != null)
+                {
+
+                    var receivedInfo = JsonConvert.DeserializeObject(content, type);
+
+                    if (receivedInfo.GetType().IsClass)
+                    {
+                        foreach (var property in receivedInfo.GetType().GetProperties())
+                        {
+                            var value = property.GetValue(receivedInfo);
+                            if (value == null)
+                            {
+                                Console.WriteLine("Exception: Object has not been deserialized properly. Check the Response Body.");
+                                Console.WriteLine("Response Body: " + content);
+                            }
+                            else
+                            {
+                                Console.WriteLine("The correct type of response has been received.");
+                                Console.WriteLine("Response Body: " + content);
+                            }
+                        }
+                    }
+                }
+
+
+
+                }
+
+                catch (Exception e)  
+                { 
+                    Console.WriteLine("Invalid Deserialized Type" + "Exception: " + e);
+                    Console.WriteLine("Response Body: " + content);
+                }
+            // Console.WriteLine(((GetCatalogItemIdResp)receivedInfo).catalogItem.id);
+              
             
-
-            if (type != null)
-            {
-                var receivedInfo = JsonConvert.DeserializeObject(content, type);
-                
-               // Console.WriteLine(((GetCatalogItemIdResp)receivedInfo).catalogItem.id);
-                Console.WriteLine(content);
-            }
-
-
         }
 
         [Then(@"the Status Code ""([^""]*)"" should be received")]
         public void ThenTheStatusCodeShouldBeReceived(int statusCode)
         {
-            HttpStatusCode stringCode = apiConfigs.response.StatusCode;
-            int intCode = (int)stringCode;
-            Console.WriteLine(intCode);
-            Assert.AreEqual(statusCode, intCode);
+            HttpStatusCode gettingTheResponseCode = apiConfigs.response.StatusCode;
+            int intCode = (int)gettingTheResponseCode;
+            
+
             var response = apiConfigs.response;
             var headers = response.Headers;
 
-
-            if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                // Access the response headers and verify a specific header
+                Assert.AreEqual(statusCode, intCode);
                 if (headers != null)
                 {
-
                     Dictionary<string, string> HeadersList = new Dictionary<string, string>();
-                    foreach(var item in response.Headers)
+                    foreach (var item in response.Headers)
                     {
-                        string[]KeyPairs = item.ToString().Split('=');
+                        string[] KeyPairs = item.ToString().Split('=');
                         HeadersList.Add(KeyPairs[0], KeyPairs[1]);
 
 
                         Console.WriteLine($"The value of Your-Header-Name is: {KeyPairs[0]}, {KeyPairs[1]}");
+                    }
+                }
+            }
+
+            catch (Exception ex) { Console.WriteLine("Exception: Incorrect Status Code received: "+ intCode + ex); }
+
+
+
+
+          //  
+
+      
+
+
+
+            
+
+           // if (apiConfigs.response.StatusCode == HttpStatusCode.OK)
+         //   {
+                // Access the response headers and verify a specific header
+              //  if (headers != null)
+              //  {
+
+                 //   Dictionary<string, string> HeadersList = new Dictionary<string, string>();
+                   // foreach(var item in response.Headers)
+                  //  {
+                     //   string[]KeyPairs = item.ToString().Split('=');
+                     //   HeadersList.Add(KeyPairs[0], KeyPairs[1]);
+
+
+                     //   Console.WriteLine($"The value of Your-Header-Name is: {KeyPairs[0]}, {KeyPairs[1]}");
                         
 
 
-                    }
+                   // }
 
 
 
                     
-                }
+               // }
 
                 
-            }
-            else
-            {
-                Console.WriteLine($"Request failed with status code: {response.StatusCode}");
-            }
+           // }
+         //  else
+           // {
+         //       Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+           // }
 
 
         }

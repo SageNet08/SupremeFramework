@@ -14,15 +14,18 @@ namespace POMSelenium.Hooks
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
-
-     
+        private readonly ScenarioContext _scenarioContext;
+      public WebDriverHooks(ScenarioContext scenarioContext) 
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         [BeforeScenario("@Chrome")]
         public void BeforeScenarioWithChromeTag()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized");
-            options.AddArgument("--headless"); 
+          ///  options.AddArgument("--headless");
             driver = new ChromeDriver(options);
 
         }
@@ -60,7 +63,7 @@ namespace POMSelenium.Hooks
 
 
 
-        [AfterStep] 
+        [AfterStep("@UI")] 
         
         public void AfterStep() {
 
@@ -71,11 +74,21 @@ namespace POMSelenium.Hooks
 
         }
 
-        [AfterScenario]
+        [AfterScenario("@UI")]
         public void AfterScenario()
         {
 
             driver.Quit();
         }
+
+        [AfterStep("@API") ]
+        public void AfterAPIStep()
+        {
+            if(_scenarioContext.TestError != null)
+            {
+                Console.WriteLine($"Exception occured: { _scenarioContext.TestError}");
+            }
+        }
+
     }
 }

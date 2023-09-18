@@ -76,10 +76,12 @@ namespace SupremeFramework.Features.UI
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Successful Login for user1")]
         [NUnit.Framework.CategoryAttribute("Chrome")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         public virtual void SuccessfulLoginForUser1()
         {
             string[] tagsOfScenario = new string[] {
-                    "Chrome"};
+                    "Chrome",
+                    "UI"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful Login for user1", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 15
@@ -134,10 +136,12 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Successful Login for user2")]
         [NUnit.Framework.CategoryAttribute("Chrome")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         public virtual void SuccessfulLoginForUser2()
         {
             string[] tagsOfScenario = new string[] {
-                    "Chrome"};
+                    "Chrome",
+                    "UI"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful Login for user2", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 32
@@ -192,10 +196,12 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Invalid Login")]
         [NUnit.Framework.CategoryAttribute("Chrome")]
+        [NUnit.Framework.CategoryAttribute("UI")]
         public virtual void InvalidLogin()
         {
             string[] tagsOfScenario = new string[] {
-                    "Chrome"};
+                    "Chrome",
+                    "UI"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invalid Login", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 49
